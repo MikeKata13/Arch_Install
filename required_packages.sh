@@ -11,7 +11,7 @@ makepkg -si
 yes | paru -Syu
 
 #Install needed packages
-sudo pacman -S xorg-server pulseaudio xfce4 firefox alacritty lxappearance nitrogen picom gnome-tweaks qtile zsh rofi neofetch nemo libreoffice-fresh vlc code
+sudo pacman -S vim nano xorg-server pulseaudio xfce4 firefox alacritty lxappearance nitrogen picom qtile zsh rofi neofetch nemo libreoffice-fresh vlc code
 sddm python-psutil papirus-icon-theme geany
 paru -S brave-bin spotify nordic-theme flat-remix
 
@@ -30,6 +30,9 @@ cp config.py ~/.config/qtile/config.py
 
 #Create a picom configurration file
 sudo cp /etc/xdg/picom.conf ~/.config/
+
+sudo vim ~/.xprofile
+
 
 #Finish
 echo "Script Completed Successfully"
