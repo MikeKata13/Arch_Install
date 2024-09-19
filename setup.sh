@@ -11,7 +11,7 @@ fi
 
 # Define the package files and dotfiles folder
 PACKAGE_FILE="packages.txt"
-FLATPAK_FILE="flatpak.txt"
+FLATPAK_FILE="flatpaks.txt"
 DOTFILES_DIR="dotfiles"
 WALLPAPER_DIR="Wallpapers"
 THEMES_DIR=".themes"
