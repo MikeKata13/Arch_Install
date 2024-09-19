@@ -1,0 +1,7 @@
+[2024-09-15 12:42:35.205][verbose] Tunnel state: disconnected
+[2024-09-15 12:42:35.261][verbose] Map canvas scale factor: 1, using: 1
+[2024-09-15 12:42:35.273][verbose] Resize: Wrong content height: 597, expected 568
+[2024-09-15 12:43:10.650][verbose] Tunnel state: connecting
+[2024-09-15 12:43:10.690][verbose] Tunnel state: connecting
+[2024-09-15 12:43:11.174][verbose] Tunnel state: connected
+[2024-09-15 12:43:11.234][verbose] Tunnel state: connected

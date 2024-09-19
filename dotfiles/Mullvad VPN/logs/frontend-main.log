@@ -1,0 +1,12 @@
+[2024-09-15 12:42:34.569][verbose] Chromium sandbox is enabled
+[2024-09-15 12:42:34.570][info] Running version 2024.4
+[2024-09-15 12:42:34.681][info] Detected locale: en-US
+[2024-09-15 12:42:34.879][info] Connected to the daemon
+[2024-09-15 12:42:35.000][info] Skip autoconnect because GUI setting is disabled
+[2024-09-15 12:42:35.001][info] Showing notification icon: "Update available. Install the latest app version to stay up to date"
+[2024-09-15 12:42:35.185][error] Failed to check autostart file: ENOENT: no such file or directory, access '/home/mike/.config/autostart/mullvad-vpn.desktop'
+[2024-09-15 13:42:34.887][verbose] GRPC Channel connectivity state changed to 2
+[2024-09-15 14:37:05.054][info] before-quit received
+[2024-09-15 14:37:05.057][info] Quit initiated
+[2024-09-15 14:37:05.063][info] Unsubscribed from the daemon events
+[2024-09-15 14:37:05.064][verbose] GRPC Channel connectivity state changed to 4

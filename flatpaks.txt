@@ -1,0 +1,14 @@
+com.anydesk.Anydesk
+com.discordapp.Discord
+com.github.GradienceTeam.Gradience
+com.github.tchx84.Flatseal
+com.heroicgameslauncher.hgl
+com.mattjakeman.ExtensionManager
+com.spotify.Client
+io.gitlab.idevecore.Pomodoro
+md.obsidian.Obsidian
+net.lutris.Lutris
+org.libreoffice.LibreOffice
+org.mozilla.Thunderbird
+org.qgis.qgis
+us.zoom.Zoom

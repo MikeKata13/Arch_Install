@@ -1,0 +1,58 @@
+
+[audacious]
+repeat=TRUE
+shuffle=TRUE
+
+[audgui]
+filebrowser_win=0,0,949,1017
+filesel_path=/home/mike/Music/Space Ambience
+info_win=612,299,693,480
+url_opener_win=0,0,384,177
+
+[audqt]
+icon_theme=audacious-flat-dark
+theme=dark
+
+[gtkui]
+column_widths=10,275,175,10,175,175,10,100,39,10,275,275,275,10,275,175,75,10
+player_height=1044
+player_maximized=TRUE
+player_width=1908
+player_x=-3820
+player_y=29
+
+[gtkui-layout]
+item0_name=Album Art
+item0_pos=-1,965,29,944,514
+item1_name=Playlist Manager
+item1_pos=-1,965,29,944,514
+item2_name=Blur Scope
+item2_pos=-1,965,29,944,514
+item3_name=OpenGL Spectrum Analyzer
+item3_pos=-1,965,29,944,514
+item_count=4
+
+[pipewire]
+volume_left=70
+volume_right=70
+
+[qtui]
+player_height=1044
+player_width=948
+
+[skins]
+equalizer_x=1370
+equalizer_y=376
+player_x=763
+player_y=492
+playlist_visible=TRUE
+playlist_x=763
+playlist_y=579
+show_remaining_time=TRUE
+skin=/usr/share/audacious/Skins/TinyPlayer
+
+[skins-layout]
+blur_scope-qt=815,443,288,192
+gl-spectrum-qt=1537,762,288,192
+qt-spectrum=815,443,288,192
+vumeter-qt=815,443,288,192
