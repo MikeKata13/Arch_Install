@@ -99,6 +99,7 @@ fi
 # Copy dotfiles to ~/.config, overwriting existing files
 echo "Copying dotfiles to ~/.config (overwriting existing files)..."
 rsync -a --delete "$DOTFILES_DIR/" "$HOME/.config/"
+echo "Dotfiles copied successfully!"
 
 # Install Oh-My-Zsh before copying .zshrc
 if ! command -v zsh &>/dev/null; then
@@ -112,15 +113,15 @@ if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
 fi
 
 # Copy .zshrc to home directory, overwriting if necessary
-if [[ -f "$DOTFILES_DIR/$ZSHRC_FILE" ]]; then
+if [[ -f "$ZSHRC_FILE" ]]; then
 	echo "Copying $ZSHRC_FILE to home directory..."
-	cp "$DOTFILES_DIR/$ZSHRC_FILE" "$HOME/"
+	cp "$ZSHRC_FILE" "$HOME/"
 fi
 
 # Copy .xprofile to home directory, overwriting if necessary
-if [[ -f "$DOTFILES_DIR/$XPROFILE_FILE" ]]; then
+if [[ -f "$XPROFILE_FILE" ]]; then
 	echo "Copying $XPROFILE_FILE to home directory..."
-	cp "$DOTFILES_DIR/$XPROFILE_FILE" "$HOME/"
+	cp "$XPROFILE_FILE" "$HOME/"
 fi
 
 # Modify /etc/environment to add a new line
@@ -128,6 +129,10 @@ echo "Modifying /etc/environment to set PROTON_ENABLE_NVAPI=1..."
 if ! grep -q "PROTON_ENABLE_NVAPI=1" /etc/environment; then
 	echo "PROTON_ENABLE_NVAPI=1" | sudo tee -a /etc/environment
 fi
+
+# Enable gdm service
+echo "Enabling gdm service..."
+sudo systemctl enable gdm.service
 
 # Install Nerd Fonts
 echo "Installing Nerd Fonts..."
@@ -137,5 +142,4 @@ cd nerd-fonts
 ./install.sh
 rm -rf nerd-fonts
 
-echo "Dotfiles copied successfully!"
 echo "All packages (including Flatpak) installed, directories created, configurations applied, /etc/environment updated, and Nerd Fonts installed!"
