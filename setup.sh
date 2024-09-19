@@ -3,15 +3,9 @@
 # Enable verbose mode for easier debugging
 set -e
 
-# Check if the script is running with root privileges
-if [[ "$(id -u)" -ne 0 ]]; then
-	echo "This script must be run as root. Exiting..."
-	exit 1
-fi
-
 # Define the package files and dotfiles folder
 PACKAGE_FILE="packages.txt"
-FLATPAK_FILE="flatpaks.txt"
+FLATPAK_FILE="flatpak.txt"
 DOTFILES_DIR="dotfiles"
 WALLPAPER_DIR="Wallpapers"
 THEMES_DIR=".themes"
@@ -41,12 +35,12 @@ fi
 
 # Update the package database and upgrade the system
 echo "Updating system..."
-pacman -Syu --noconfirm
+sudo pacman -Syu --noconfirm
 
 # Check if yay is installed, and if not, install it
 if ! command -v yay &>/dev/null; then
 	echo "Installing yay..."
-	pacman -S --noconfirm --needed base-devel git
+	sudo pacman -S --noconfirm --needed base-devel git
 	git clone https://aur.archlinux.org/yay.git
 	cd yay
 	makepkg -si --noconfirm
@@ -61,9 +55,9 @@ yay -S --needed --noconfirm - <"$PACKAGE_FILE"
 # Install Flatpak packages if flatpak is installed
 if ! command -v flatpak &>/dev/null; then
 	echo "Installing Flatpak..."
-	pacman -S --noconfirm flatpak
+	sudo pacman -S --noconfirm flatpak
 	echo "Setting up Flatpak..."
-	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
 echo "Installing Flatpak apps from $FLATPAK_FILE..."
@@ -104,7 +98,7 @@ fi
 # Install Oh-My-Zsh before copying .zshrc
 if ! command -v zsh &>/dev/null; then
 	echo "Installing Zsh..."
-	pacman -S --noconfirm zsh
+	sudo pacman -S --noconfirm zsh
 fi
 
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
@@ -133,7 +127,7 @@ rsync -a --delete "$DOTFILES_DIR/" ~/.config/
 # Modify /etc/environment to add a new line
 echo "Modifying /etc/environment to set PROTON_ENABLE_NVAPI=1..."
 if ! grep -q "PROTON_ENABLE_NVAPI=1" /etc/environment; then
-	echo "PROTON_ENABLE_NVAPI=1" >>/etc/environment
+	echo "PROTON_ENABLE_NVAPI=1" | sudo tee -a /etc/environment
 fi
 
 echo "Dotfiles copied successfully!"
