@@ -96,6 +96,10 @@ if [[ -d "$ICONS_DIR" ]]; then
 	cp -r "$ICONS_DIR" "$HOME/"
 fi
 
+# Copy dotfiles to ~/.config, overwriting existing files
+echo "Copying dotfiles to ~/.config (overwriting existing files)..."
+rsync -a --delete "$DOTFILES_DIR/" "$HOME/.config/"
+
 # Install Oh-My-Zsh before copying .zshrc
 if ! command -v zsh &>/dev/null; then
 	echo "Installing Zsh..."
