@@ -3,6 +3,12 @@
 # Enable verbose mode for easier debugging
 set -e
 
+# Check if the script is running with root privileges
+if [[ "$(id -u)" -ne 0 ]]; then
+	echo "This script must be run as root. Exiting..."
+	exit 1
+fi
+
 # Define the package files and dotfiles folder
 PACKAGE_FILE="packages.txt"
 FLATPAK_FILE="flatpak.txt"
@@ -35,12 +41,12 @@ fi
 
 # Update the package database and upgrade the system
 echo "Updating system..."
-sudo pacman -Syu --noconfirm
+pacman -Syu --noconfirm
 
 # Check if yay is installed, and if not, install it
 if ! command -v yay &>/dev/null; then
 	echo "Installing yay..."
-	sudo pacman -S --noconfirm --needed base-devel git
+	pacman -S --noconfirm --needed base-devel git
 	git clone https://aur.archlinux.org/yay.git
 	cd yay
 	makepkg -si --noconfirm
@@ -55,9 +61,9 @@ yay -S --needed --noconfirm - <"$PACKAGE_FILE"
 # Install Flatpak packages if flatpak is installed
 if ! command -v flatpak &>/dev/null; then
 	echo "Installing Flatpak..."
-	sudo pacman -S --noconfirm flatpak
+	pacman -S --noconfirm flatpak
 	echo "Setting up Flatpak..."
-	sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 fi
 
 echo "Installing Flatpak apps from $FLATPAK_FILE..."
@@ -98,7 +104,7 @@ fi
 # Install Oh-My-Zsh before copying .zshrc
 if ! command -v zsh &>/dev/null; then
 	echo "Installing Zsh..."
-	sudo pacman -S --noconfirm zsh
+	pacman -S --noconfirm zsh
 fi
 
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
@@ -124,5 +130,11 @@ rm -rf nerd-fonts
 echo "Copying dotfiles to ~/.config (overwriting existing files)..."
 rsync -a --delete "$DOTFILES_DIR/" ~/.config/
 
+# Modify /etc/environment to add a new line
+echo "Modifying /etc/environment to set PROTON_ENABLE_NVAPI=1..."
+if ! grep -q "PROTON_ENABLE_NVAPI=1" /etc/environment; then
+	echo "PROTON_ENABLE_NVAPI=1" >>/etc/environment
+fi
+
 echo "Dotfiles copied successfully!"
-echo "All packages (including Flatpak) installed, directories created, Nerd Fonts installed, and configurations applied!"
+echo "All packages (including Flatpak) installed, directories created, Nerd Fonts installed, configurations applied, and /etc/environment updated!"
