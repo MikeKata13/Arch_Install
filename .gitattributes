@@ -1,0 +1,5 @@
+flatpaks.txt filter=lfs diff=lfs merge=lfs -text
+packages.txt filter=lfs diff=lfs merge=lfs -text
+README.md filter=lfs diff=lfs merge=lfs -text
+setup.sh filter=lfs diff=lfs merge=lfs -text
+Wallpapers filter=lfs diff=lfs merge=lfs -text
