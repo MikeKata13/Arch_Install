@@ -5,12 +5,13 @@ set -e
 
 # Define the package files and dotfiles folder
 PACKAGE_FILE="packages.txt"
-FLATPAK_FILE="flatpaks.txt"
+FLATPAK_FILE="flatpak.txt"
 DOTFILES_DIR="dotfiles"
 WALLPAPER_DIR="Wallpapers"
 THEMES_DIR=".themes"
 ICONS_DIR=".icons"
 ZSHRC_FILE=".zshrc"
+XPROFILE_FILE=".xprofile"
 
 # Define user directories
 USER_DIRS=("Documents" "Pictures" "Music" "Downloads" "Videos")
@@ -112,6 +113,12 @@ if [[ -f "$DOTFILES_DIR/$ZSHRC_FILE" ]]; then
 	cp "$DOTFILES_DIR/$ZSHRC_FILE" "$HOME/"
 fi
 
+# Copy .xprofile to home directory, overwriting if necessary
+if [[ -f "$DOTFILES_DIR/$XPROFILE_FILE" ]]; then
+	echo "Copying $XPROFILE_FILE to home directory..."
+	cp "$DOTFILES_DIR/$XPROFILE_FILE" "$HOME/"
+fi
+
 # Modify /etc/environment to add a new line
 echo "Modifying /etc/environment to set PROTON_ENABLE_NVAPI=1..."
 if ! grep -q "PROTON_ENABLE_NVAPI=1" /etc/environment; then
@@ -127,4 +134,4 @@ cd nerd-fonts
 rm -rf nerd-fonts
 
 echo "Dotfiles copied successfully!"
-echo "All packages (including Flatpak) installed, directories created, configurations applied, and /etc/environment updated!"
+echo "All packages (including Flatpak) installed, directories created, configurations applied, /etc/environment updated, and Nerd Fonts installed!"

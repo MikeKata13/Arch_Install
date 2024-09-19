@@ -1,0 +1,9 @@
+feh --bg-scale ~/Pictures/Wallpapers/glacier.jpg &
+dwmblocks &
+xrdb &
+redshift &
+#wal -t -s -R &
+dunst &
+xset r rate 300 50 &
+xset s off -dpms &
+clipmenud &
