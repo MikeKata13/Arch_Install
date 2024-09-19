@@ -1,3 +1,4 @@
+rsync
 zsh
 zsh_completions
 alacritty
