@@ -5,7 +5,7 @@ set -e
 
 # Define the package files and dotfiles folder
 PACKAGE_FILE="packages.txt"
-FLATPAK_FILE="flatpaks.txt"
+FLATPAK_FILE="flatpak.txt"
 DOTFILES_DIR="dotfiles"
 WALLPAPER_DIR="Wallpapers"
 THEMES_DIR=".themes"
@@ -112,6 +112,12 @@ if [[ -f "$DOTFILES_DIR/$ZSHRC_FILE" ]]; then
 	cp "$DOTFILES_DIR/$ZSHRC_FILE" "$HOME/"
 fi
 
+# Modify /etc/environment to add a new line
+echo "Modifying /etc/environment to set PROTON_ENABLE_NVAPI=1..."
+if ! grep -q "PROTON_ENABLE_NVAPI=1" /etc/environment; then
+	echo "PROTON_ENABLE_NVAPI=1" | sudo tee -a /etc/environment
+fi
+
 # Install Nerd Fonts
 echo "Installing Nerd Fonts..."
 mkdir -p "$HOME/.local/share/fonts"
@@ -120,15 +126,5 @@ cd nerd-fonts
 ./install.sh
 rm -rf nerd-fonts
 
-# Copy dotfiles to .config, overwriting any existing files
-echo "Copying dotfiles to ~/.config (overwriting existing files)..."
-rsync -a --delete "$DOTFILES_DIR/" ~/.config/
-
-# Modify /etc/environment to add a new line
-echo "Modifying /etc/environment to set PROTON_ENABLE_NVAPI=1..."
-if ! grep -q "PROTON_ENABLE_NVAPI=1" /etc/environment; then
-	echo "PROTON_ENABLE_NVAPI=1" | sudo tee -a /etc/environment
-fi
-
 echo "Dotfiles copied successfully!"
-echo "All packages (including Flatpak) installed, directories created, Nerd Fonts installed, configurations applied, and /etc/environment updated!"
+echo "All packages (including Flatpak) installed, directories created, configurations applied, and /etc/environment updated!"
