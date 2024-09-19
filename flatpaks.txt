@@ -10,5 +10,3 @@ md.obsidian.Obsidian
 net.lutris.Lutris
 org.libreoffice.LibreOffice
 org.mozilla.Thunderbird
-org.qgis.qgis
-us.zoom.Zoom
