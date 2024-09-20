@@ -1,0 +1,13 @@
+return {
+  -- { "dunstontc/vim-vscode-theme" },
+  { "Mofiqul/vscode.nvim" },
+  {
+
+    "LazyVim/LazyVim",
+    --"dunstontc/vim-vscode-theme",
+    opts = {
+      --colorscheme = "dark_plus",
+      colorscheme = "vscode",
+    },
+  },
+}
