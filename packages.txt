@@ -37,6 +37,7 @@ neovim
 nvtop
 onedrive-abraunegg
 os-prober
+pavucontrol
 pipewire
 qt5ct
 qt6ct
