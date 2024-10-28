@@ -1,0 +1,10 @@
+alias vim="nvim"
+alias vpn-up-dk="nmcli connection up dk-cph-wg-001"
+alias vpn-up-gr="nmcli connection up gr-ath-wg-101"
+alias vpn-down-dk="nmcli connection down dk-cph-wg-001"
+alias vpn-down-gr="nmcli connection down gr-ath-wg-101"
+alias ls="ls -lah --color"
+alias bk="feh --bg-scale ~/Pictures/Wallpapers/glacier.jpg"
+alias bk_h="swww img ~/Pictures/Wallpapers/glacier.jpg"
+alias ytaudio='yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 -o "%(title)s.%(ext)s"'
+alias drive_sync="rclone sync ~/Drive "Google Drive":/ --update -P"	# One-way (local to cloud)

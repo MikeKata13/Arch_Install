@@ -2,13 +2,13 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+#export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,9 +70,9 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+#plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -82,32 +82,64 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
+#if [[ -n $SSH_CONNECTION ]]; then
+#  export EDITOR='vim'
+#else
+#  export EDITOR='mvim'
+#fi
 
-# Compilation flags
-export ARCHFLAGS="-arch x86_64"
+################### Prompt ################################
+fpath=(/home/mike/.config/zsh/purification/ $fpath)
+autoload -Uz prompt_purification_setup && prompt_purification_setup
+
+############### Completion System #########################
+fpath=(/home/mike/.config/zsh/plugins/zsh-completions/src $fpath)
+autoload -U compinit; compinit
+
+
+############# Syntax Highlighting #########################
+source /home/mike/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+########## Jump to Parent Directory #######################
+source /home/mike/.config/zsh/plugins/bd/bd.zsh
 
 
 ################## ALIASES GO HERE ########################
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim="nvim"
-alias vpn-up-dk="nmcli connection up dk-cph-wg-001"
-alias vpn-up-gr="nmcli connection up gr-ath-wg-101"
-alias vpn-down-dk="nmcli connection down dk-cph-wg-001"
-alias vpn-down-gr="nmcli connection down gr-ath-wg-101"
-alias thesis="cd ~/OneDrive/MSc\ Earth\ and\ Space\ Physics\ and\ Engineering/4th\ Semester/Thesis/Supraglacial_Lakes_DL/src/area_depth && conda activate thesis"
-alias thesis_doc="cd ~/OneDrive/MSc\ Earth\ and\ Space\ Physics\ and\ Engineering/4th\ Semester/Thesis/Thesis\ Document"
-alias ls="ls -lah --color"
-alias bk="feh --bg-scale ~/Pictures/Wallpapers/glacier.jpg"
-alias bk_h="swww img ~/Pictures/Wallpapers/glacier.jpg"
-alias ytaudio='yt-dlp -f bestaudio --extract-audio --audio-format mp3 --audio-quality 0 -o "%(title)s.%(ext)s"'
+source /home/mike/.config/zsh/aliases
 ###########################################################
 
+############## Enable Vi Mode #############################
+bindkey -v
+export KEYTIMEOUT=1
+cursor_mode() {
+    # See https://ttssh2.osdn.jp/manual/4/en/usage/tips/vim.html for cursor shapes
+    cursor_block='\e[2 q'
+    cursor_beam='\e[6 q'
+
+    function zle-keymap-select {
+        if [[ ${KEYMAP} == vicmd ]] ||
+            [[ $1 = 'block' ]]; then
+            echo -ne $cursor_block
+        elif [[ ${KEYMAP} == main ]] ||
+            [[ ${KEYMAP} == viins ]] ||
+            [[ ${KEYMAP} = '' ]] ||
+            [[ $1 = 'beam' ]]; then
+            echo -ne $cursor_beam
+        fi
+    }
+
+    zle-line-init() {
+        echo -ne $cursor_beam
+    }
+
+    zle -N zle-keymap-select
+    zle -N zle-line-init
+}
+
+cursor_mode
+###############################################################################
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -122,18 +154,6 @@ else
     fi
 fi
 unset __conda_setup
-
-
 # <<< conda initialize <<<
 
-# Import colorscheme from 'wal' asynchronously
-# &   # Run the process in the background.
-# ( ) # Hide shell job control messages.
-# Not supported in the "fish" shell.
-#(cat ~/.cache/wal/sequences &)
 
-# Alternative (blocks terminal for 0-3ms)
-#cat ~/.cache/wal/sequences
-
-# To add support for TTYs this line can be optionally added.
-#source ~/.cache/wal/colors-tty.sh
