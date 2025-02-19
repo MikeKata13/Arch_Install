@@ -7,10 +7,11 @@ set -e
 PACKAGE_FILE="packages.txt"
 FLATPAK_FILE="flatpaks.txt"
 DOTFILES_DIR="dotfiles"
+BASH_DIR="mybash"
 WALLPAPER_DIR="Wallpapers"
 THEMES_DIR=".themes"
 ICONS_DIR=".icons"
-ZSHENV_FILE=".zshenv"
+SCRIPTS_DIR=".scripts"
 XPROFILE_FILE=".xprofile"
 
 # Define user directories
@@ -96,27 +97,16 @@ if [[ -d "$ICONS_DIR" ]]; then
   cp -r "$ICONS_DIR" "$HOME/"
 fi
 
+# Copy scripts to home directory
+if [[ -d "$SCRIPTS_DIR" ]]; then
+  echo "Copying $SCRIPTS_DIR to home directory..."
+  cp -r "$SCRIPTS_DIR" "$HOME/"
+fi
+
 # Copy dotfiles to ~/.config, overwriting existing files
 echo "Copying dotfiles to ~/.config (overwriting existing files)..."
 rsync -a --delete "$DOTFILES_DIR/" "$HOME/.config/"
 echo "Dotfiles copied successfully!"
-
-# Install Oh-My-Zsh before copying .zshrc
-if ! command -v zsh &>/dev/null; then
-  echo "Installing Zsh..."
-  sudo pacman -S --noconfirm zsh
-fi
-
-#if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-#  echo "Installing Oh-My-Zsh..."
-#  sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-#fi
-
-# Copy .zshenv to home directory, overwriting if necessary (this points to custom zsh folder in dotfiles, where .zshrc is found)
-if [[ -f "$ZSHENV_FILE" ]]; then
-  echo "Copying $ZSHENV_FILE to home directory..."
-  cp "$ZSHENV_FILE" "$HOME/"
-fi
 
 # Copy .xprofile to home directory, overwriting if necessary
 if [[ -f "$XPROFILE_FILE" ]]; then
@@ -142,4 +132,9 @@ cd nerd-fonts
 ./install.sh
 rm -rf nerd-fonts
 
-echo "All packages (including Flatpak) installed, directories created, configurations applied, /etc/environment updated, and Nerd Fonts installed!"
+# Create customized bash prompt
+echo "Creating customized bash prompt..."
+cp -r "$BASH_DIR" "$HOME/.local/share/"
+ln -s "$HOME/.local/share/$BASH_DIR/.bashrc" "$HOME/.bashrc"
+
+echo "All packages (including Flatpak) installed, directories created, configurations applied, /etc/environment updated, Nerd Fonts installed and bash prompt created!"

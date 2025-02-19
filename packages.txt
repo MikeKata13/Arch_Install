@@ -37,10 +37,10 @@ neovim
 nvtop
 onedrive-abraunegg
 os-prober
-pavucontrol
 pipewire
 qt5ct
 qt6ct
+starship
 steam
 stremio
 swaylock-effects-git
@@ -52,7 +52,6 @@ ttf-ubuntu-font-family
 ufw
 vim
 virt-manager
-visual-studio-code-bin
 vkd3d-proton-bin
 vlc
 vulkan-tools
@@ -76,4 +75,5 @@ xorg-xinit
 xorg-xsetroot
 xrdp
 yaru-icon-theme
+yazi
 yt-dlp
